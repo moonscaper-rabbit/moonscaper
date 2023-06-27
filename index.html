@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Website with Table and Pictures</title>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>NFT ID</th>
+                <th>Item ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+          </thead>
+        <tbody id="table-data">
+            <!-- Data will be dynamically inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        fetch('https://game-prod.voxies.io/items/contract/69')
+            .then(response => response.json())
+            .then(data => {
+                const tableDataElement = document.getElementById('table-data');
+                
+                // Iterate over the fetched data and populate the table
+                const row = document.createElement('tr');
+                
+                const nftIdColumn = document.createElement('td');
+                nftIdColumn.textContent = data.nftId;
+                row.appendChild(nftIdColumn);
+                
+                const itemIdColumn = document.createElement('td');
+                itemIdColumn.textContent = data.itemId;
+                row.appendChild(itemIdColumn);
+                
+                const nameColumn = document.createElement('td');
+                nameColumn.textContent = data.name;
+                row.appendChild(nameColumn);
+                
+                const descriptionColumn = document.createElement('td');
+                descriptionColumn.textContent = data.description;
+                row.appendChild(descriptionColumn);
+                
+                const imageColumn = document.createElement('td');
+                const image = document.createElement('img');
+                image.src = data.image;
+                imageColumn.appendChild(image);
+                row.appendChild(imageColumn);
+                
+                tableDataElement.appendChild(row);
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+</html>
